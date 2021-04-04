@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from "react";
-import ConfettiCanvas from "react-confetti-canvas";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
 const App = () => {
-  const [Confetti, setConfetti] = useState(false);
+  const [confetti, setConfetti] = useState(false);
+  const { width, height } = useWindowSize();
 
   return (
     <Fragment>
-      {!Confetti && (
+      {!confetti && (
         <div className="container  d-flex justify-content-center mt-5">
           {" "}
           <button className="btn btn-dark" onClick={() => setConfetti(true)}>
@@ -15,16 +17,10 @@ const App = () => {
           </button>{" "}
         </div>
       )}
-      {Confetti === true && (
-        <div style={{ width: "100%", height: "100vh" }}>
-          <ConfettiCanvas paperCount={300} ribbonCount={0} />
-        </div>
-      )}
+      { confetti === true &&  <Confetti width={width} height={height}  recycle={false} numberOfPieces={200} /> }
     </Fragment>
   );
 };
 
 export default App;
 
-
-// For More Refernce: https://github.com/fufu70/react-confetti-canvas
